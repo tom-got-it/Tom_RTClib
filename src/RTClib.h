@@ -388,6 +388,9 @@ public:
   void disable32K(void);
   bool isEnabled32K(void);
   float getTemperature(); // in Celsius degree
+  bool isAlarm1InterruptEnabled();
+  bool isAlarm2InterruptEnabled();
+
   /*!
       @brief  Convert the day of the week to a representation suitable for
               storing in the DS3231: from 1 (Monday) to 7 (Sunday).

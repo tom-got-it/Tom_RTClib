@@ -382,3 +382,45 @@ void RTC_DS3231::disable32K(void) {
 bool RTC_DS3231::isEnabled32K(void) {
   return (read_register(DS3231_STATUSREG) >> 0x03) & 0x01;
 }
+
+/**************************************************************************/
+/*!
+    @brief  Check if the interrupt for alarm 1 will trigger
+    @return True if enabled otherwise false
+*/
+/**************************************************************************/
+bool RTC_DS3231::isAlarm1InterruptEnabled() {
+  uint8_t ctrl = read_register(DS3231_CONTROL);
+  if (!(ctrl & 0x04)) {
+    return false;
+  }
+
+  if (!(ctrl & 0x03)) {
+    //Interrups not enabled (SQW oscillations are active)
+    return false;
+  }
+
+  uint8_t mask = 0x01;
+  return (ctrl & mask);
+}
+
+/**************************************************************************/
+/*!
+    @brief  Check if the interrupt for alarm 2 will trigger
+    @return True if enabled otherwise false
+*/
+/**************************************************************************/
+bool RTC_DS3231::isAlarm2InterruptEnabled() {
+  uint8_t ctrl = read_register(DS3231_CONTROL);
+  if (!(ctrl & 0x04)) {
+    return false;
+  }
+
+  if (!(ctrl & 0x03)) {
+    //Interrups not enabled (SQW oscillations are active)
+    return false;
+  }
+
+  uint8_t mask = 0x02;
+  return (ctrl & mask);
+}
